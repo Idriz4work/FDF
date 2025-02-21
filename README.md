@@ -10,7 +10,7 @@ A 42 Networks Graphics Project focused on building a 2D/3D Wireframe Model from 
 make && ./fdf maps/42.fdf
 ```
 
-![Compilation Process](https://github.com/hel-mefe/FDF-42/blob/master/visuals/howtomake.gif)
+![Compilation Process](/github.com/hel-mefe/FDF-42/blob/master/visuals/howtomake.gif)
 
 ---
 
@@ -43,19 +43,19 @@ graph TD;
 ## 🎨 Features
 
 - ### 🔄 Rotation
-  ![Rotation Demo](https://github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_rotation-min.gif)
+  ![Rotation Demo](/github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_rotation-min.gif)
 
 - ### 🌈 Multiple Random Colors
-  ![Color Modes](https://github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_modes.gif)
+  ![Color Modes](/github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_modes.gif)
 
 - ### 📏 Z-scaling
-  ![Z-scaling Demo](https://github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_magnitude.gif)
+  ![Z-scaling Demo](/github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_magnitude.gif)
 
 - ### 🖼️ 2D/3D Mode
-  ![2D/3D Switch](https://github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_pylone_yellow.gif)
+  ![2D/3D Switch](/github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_pylone_yellow.gif)
 
 - ### ⚡ High Flexibility
-  ![High Flexibility Demo](https://github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_pylone-min.gif)
+  ![High Flexibility Demo](/github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_pylone-min.gif)
 
 ---
 
@@ -74,12 +74,12 @@ The program takes **1 argument** as input:
 
 ## 📚 Resources
 
-- [Scratchapixel](https://www.scratchapixel.com/)
-- [Rasterization - Wikipedia](https://en.wikipedia.org/wiki/Rasterisation)
-- [Bresenham's Line Drawing Algorithm](https://www.youtube.com/watch?v=RGB-wlatStc&t=445s)
-- [DDA Line Drawing Algorithm](https://www.youtube.com/watch?v=W5P8GlaEOSI)
-- [Graphics Masterclass with OpenGL](https://www.youtube.com/watch?v=c1li0SFhyMo&list=PLn3eTxaOtL2PuG1VfwmfAh46mT5N7lE4D)
-- [Mathematics for Graphics](https://www.youtube.com/watch?v=6NB4Gn_BC_U&list=PLn3eTxaOtL2MfiIeGePe3tUGQ3Bi_IkXb)
+- [Scratchapixel](/www.scratchapixel.com/)
+- [Rasterization - Wikipedia](/en.wikipedia.org/wiki/Rasterisation)
+- [Bresenham's Line Drawing Algorithm](/www.youtube.com/watch?v=RGB-wlatStc&t=445s)
+- [DDA Line Drawing Algorithm](/www.youtube.com/watch?v=W5P8GlaEOSI)
+- [Graphics Masterclass with OpenGL](/www.youtube.com/watch?v=c1li0SFhyMo&list=PLn3eTxaOtL2PuG1VfwmfAh46mT5N7lE4D)
+- [Mathematics for Graphics](/www.youtube.com/watch?v=6NB4Gn_BC_U&list=PLn3eTxaOtL2MfiIeGePe3tUGQ3Bi_IkXb)
 
 ---
 
@@ -97,7 +97,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🎥 Demo
 
-![Demo GIF](https://github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_pylone-min.gif)
+![Demo GIF](/github.com/hel-mefe/FDF-42/blob/master/visuals/fdf_pylone-min.gif)
 
 ---
 
