@@ -49,7 +49,7 @@ int					check_conditionpt2(const char *format, int i, va_list args,
 						int *bytes);
 
 void				handle_strings(char *format, int *bytes);
-void				pointer_helper(char buffer[2048], int i, int *bytes);
+void				pointer_helper(char buffer[18], int i, int *bytes);
 int					pointer_helper_two(void *ptr, unsigned long memory_address,
 						int *bytes);
 void				put_pointer(void *ptr, int *bytes);

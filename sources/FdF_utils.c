@@ -11,3 +11,17 @@
 /* ************************************************************************** */
 
 #include "FdF.h"
+
+int count_columns(char *line)
+{
+    int cols = 0;
+    
+    return cols;
+}
+
+int **allocate_grid(int rows, int cols)
+{
+    int **grid;
+    return grid;
+}
+

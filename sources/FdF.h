@@ -24,15 +24,31 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-typedef struct mp
+typedef struct s_map
 {
-	void	*ptr_server_mlx;
-	void	*ptr_window_mlx;
-	size_t	x_width;
-	size_t	y_length;
-	size_t	z_heigth;
-	size_t	**map;
-	size_t	**color_map;
-}			map;
+    void    *ptr_server_mlx;
+    void    *ptr_window_mlx;
+    size_t     **grid;
+    size_t     rows;
+    size_t     cols;
+} t_map;
+
+typedef struct s_coord
+{
+    float   x;
+    float   y;
+} t_coord;
+
+
+// 30 degrees in radians
+#define ISO_ANGLE 0.523599 
+#define SCALE 30
+
+// Function prototypes
+int     initialize_window(t_map *maps, char *argv);
+int     read_input(char *filename, t_map *maps);
+void    draw_grid(t_map *maps, int **grid, int rows, int cols);
+void    draw_line_dda(t_map *maps, float x1, float y1, float x2, float y2, int color);
+int     key_hook(int keycode, t_map *maps);
 
 #endif

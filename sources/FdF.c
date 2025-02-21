@@ -12,75 +12,78 @@
 
 #include "FdF.h"
 
-int	process_points(char *content, map	*points)
+// Convert 3D coordinates to isometric projection
+t_coord iso_projection(float x, float y, float z)
 {
-	char	**numbers;
-	int		i;
-
-	i = 0;
-	numbers = ft_split(content, ' ');
-	while (numbers[i] != NULL && numbers[i+1] != NULL)
-	{
-		mlx_pixel_put(points->ptr_server_mlx, points->ptr_window_mlx,
-			255, ft_atoi(numbers[i]), 255);
-		mlx_pixel_put(points->ptr_server_mlx, points->ptr_window_mlx,
-			ft_atoi(numbers[i+1]), 255, 155);
-		i++;
-	}
-	return (0);
+    t_coord iso;
+    // Isometric formulas
+    iso.x = (x - y) * cos(ISO_ANGLE);
+    iso.y = (x + y) * sin(ISO_ANGLE) - z;
+    
+    // Center the projection
+    iso.x += 400;  // Half of window width
+    iso.y += 300;  // Adjust for better viewing
+    return iso;
 }
 
-int	read_input(char *filename,map *points)
+int read_input(char *filename, t_map *map)
 {
-	int		fd;
-	char	*content;
-
-	ft_printf("hello read\n");
-	fd = open(filename, O_RDONLY);
-	if (!fd)
-		return (-1);
-	content = get_next_line(fd);
-	while (content != NULL)
-	{
-		if (process_points(content,points) == -1)
-        {
-            close(fd);
-            return (-1);
-        }
-        free(content);
-        content = get_next_line(fd);
-	}
-	return (0);
+    char **lines;
+    int row_size = 0;
+    int fd = open(argv[1],"OR_RD");
+    if (fd == -1)
+    {
+        strerror("error opening file\n");
+        exit(-1);
+    }
+    while (lines[row_size] != NULL)
+    {
+        lines[row_size] = get_next_line(fd);
+        row_size++;
+    }
+    map->grid = allocate_grid(row_size,column_size);
+    // Draw the grid
+    draw_grid(map, map->grid, row_size, column_size);
+    // Cleanup
+    free_array(grid);
+    free(grid);
+    close(fd);
+    return 0;
 }
 
-int	initiliaze_window(map *points, char *argv)
+void initialize_window(t_map *map, char *argv)
 {
-	ft_printf("server startet...\n");
-	points->ptr_server_mlx = mlx_init();
-	if (!points->ptr_server_mlx)
-		return (-1);
-	points->ptr_window_mlx = mlx_new_window(points->ptr_server_mlx, 800, 800,
-			"yeni pencere");
-	if (!points->ptr_window_mlx)
-	{
-		mlx_destroy_window(points->ptr_server_mlx, points->ptr_window_mlx);
-		free(points->ptr_server_mlx);
-		points->ptr_server_mlx = NULL;
-		return (-1);
-	}
-	if (read_input(argv,points) == -1)
-		return (-1);
-	mlx_loop(points->ptr_server_mlx);
-	return (0);
+    map->ptr_server_mlx = mlx_init();
+    if (!map->ptr_server_mlx)
+    {
+        strerror("failed to set up server: ",map->ptr_server_mlx);
+        exit(-1);
+    }
+    map->ptr_window_mlx = mlx_new_window(map->ptr_server_mlx, 1200, 1200, "FdF");
+    if (!map->ptr_window_mlx)
+    {
+        mlx_destroy_window(map->ptr_server_mlx, map->ptr_window_mlx);
+        strerror("failed to set up server: ",map->ptr_server_mlx);
+        exit(-1);
+    }
+    if (read_input(argv, map) == -1)
+    {
+        strerror("failed to read input: ",argv[1]);
+        exit(-1);
+    }
+    mlx_loop(map->ptr_server_mlx);
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
-	map	points;
-	if (argc == 2)
-	{
-		if (initiliaze_window(&points, argv[1]) == -1)
-			return (-1);
-	}
-	return (1);
+    t_map map;
+    
+    if (argc != 2)
+    {
+        ft_printf("Usage: %s <filename>\n", argv[0]);
+        return 1;
+    }
+    initialize_window(&map, argv[1]);
+
+    return 0;
 }

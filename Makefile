@@ -1,20 +1,20 @@
 NAME = fdf
 
 # Source files
-SRCS = sources/FdF.c  sources/FdF_utils.c   sources/hooker.c   sources/limitator.c  sources/'point$.c'   sources/starter.c
+SRCS = sources/FdF.c  sources/FdF_utils.c   sources/hooker.c   sources/limitator.c  sources/points.c   sources/starter.c
 OBJS = $(SRCS:.c=.o)
 
 # Compiler and flags
-CC = cc -Wall -Werror -Wextra
+CC = cc #-Wall -Werror -Wextra
 CFLAGS =  -g
 
 # Include paths
-INCLUDES = -I./includes/Libft -I./includes/ft_printf -I./provided_sources/minilibx-linux
+INCLUDES = -I./includes/Libft -I./includes/ft_printf -I./mlx_libaries/minilibx-linux
 
 # Libraries paths
 LIBFT_DIR = includes/Libft
 PRINTF_DIR = includes/ft_printf
-MLX_DIR = provided_sources/minilibx-linux
+MLX_DIR = mlx_libaries/minilibx-linux
 
 # Libraries
 LIBFT = $(LIBFT_DIR)/libft.a
