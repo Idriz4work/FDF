@@ -10,6 +10,8 @@ A 42 Networks Graphics Project focused on building a 2D/3D Wireframe Model from 
 make && ./fdf test_maps/42.fdf
 ```
 
+---
+
 ![Compilation Process](/github.com/hel-mefe/FDF-42/blob/master/visuals/howtomake.gif)
 
 ---
