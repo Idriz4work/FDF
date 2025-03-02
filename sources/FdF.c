@@ -3,87 +3,147 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:34:12 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/01/15 22:05:32 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/02/24 22:41:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
-// Convert 3D coordinates to isometric projection
-t_coord iso_projection(float x, float y, float z)
+int count_column(char **row)
 {
-    t_coord iso;
-    // Isometric formulas
-    iso.x = (x - y) * cos(ISO_ANGLE);
-    iso.y = (x + y) * sin(ISO_ANGLE) - z;
-    
-    // Center the projection
-    iso.x += 400;  // Half of window width
-    iso.y += 300;  // Adjust for better viewing
-    return iso;
+    int column_count = 0
+    while (row[column_count] != NULL)
+        column_count++;
+    return column_count;
 }
 
-int read_input(char *filename, t_map *map)
+int *asign_heigth(char **row)
 {
-    char **lines;
-    int row_size = 0;
-    int fd = open(argv[1],"OR_RD");
+    int i = 0
+    while (row[i] != NULL)
+        i++;
+    i = 0;
+    int *res = (int *)malloc(sizeof(int) * i);
+    if (res == NULL)
+    {
+        perror("ERROR with asigning heigth");
+        exit(EXIT_FAILURE);
+        return NULL;
+    }
+    while (row[i] != NULL)
+    {
+        res[i] = row[i];
+        i++;
+    }
+    return res;
+}
+
+char **scan_file(int file, t_src *src_points)
+{
+    char **lines = (char **)malloc(sizeof(char *) * 4096);
+    if (lines == NULL)
+    {
+        perror("ERROR with alocating size for lines\n");
+        return NULL;
+    }
+    while (lines[i] != NULL)
+    {
+        lines[i] = get_next_line(file);
+        src_points->x_row++;
+        src_points->y_column = count_column(ft_split(lines[i],' '));
+        src_points->x_row = asign_heigth(ft_split(lines[i],' '));
+        i++;
+    }
+    return lines;
+}
+
+// Read the map from the file
+int read_map(char *filename, t_map *map,t_src *src)
+{
+    char **lines = NULL;
+    int fd = open(filename, O_RDONLY);
+        
     if (fd == -1)
     {
-        strerror("error opening file\n");
-        exit(-1);
+        perror("Error opening file");
+        exit(EXIT_FAILURE);
     }
-    while (lines[row_size] != NULL)
+
+    lines = scan_file(fd,&src);
+    if (lines == NULL)
     {
-        lines[row_size] = get_next_line(fd);
-        row_size++;
+        free_array((void**)lines)
+        strerror("ERROR after scaning file (read map)\n");
+        exit(EXIT_FAILURE);
+        return 0;
     }
-    map->grid = allocate_grid(row_size,column_size);
-    // Draw the grid
-    draw_grid(map, map->grid, row_size, column_size);
-    // Cleanup
-    free_array(grid);
-    free(grid);
+    
+    free_array((void **)map->grid);
     close(fd);
     return 0;
 }
 
-void initialize_window(t_map *map, char *argv)
-{
-    map->ptr_server_mlx = mlx_init();
-    if (!map->ptr_server_mlx)
-    {
-        strerror("failed to set up server: ",map->ptr_server_mlx);
-        exit(-1);
-    }
-    map->ptr_window_mlx = mlx_new_window(map->ptr_server_mlx, 1200, 1200, "FdF");
-    if (!map->ptr_window_mlx)
-    {
-        mlx_destroy_window(map->ptr_server_mlx, map->ptr_window_mlx);
-        strerror("failed to set up server: ",map->ptr_server_mlx);
-        exit(-1);
-    }
-    if (read_input(argv, map) == -1)
-    {
-        strerror("failed to read input: ",argv[1]);
-        exit(-1);
-    }
-    mlx_loop(map->ptr_server_mlx);
-}
+// TASKS
+/*
+The result should be displayed using an isometric projection. CHECK
 
-int main(int argc, char **argv)
+Your program must display an image in a window. 
+
+The management of the window should remain smooth (change the window, minimize it, etc.). 
+
+Pressing the ESC key should close the window and exit the program cleanly.
+
+Clicking on the cross at the top of the window should close the window and exit the program cleanly.
+
+
+*/ 
+
+
+void check_input(int argc, char **argv)
 {
-    t_map map;
-    
     if (argc != 2)
     {
         ft_printf("Usage: %s <filename>\n", argv[0]);
-        return 1;
+        return EXIT_FAILURE;
     }
-    initialize_window(&map, argv[1]);
+    char **lines;
+    int fd = open(argv[1],O_RDONLY);
+    lines = get_next_line(fd);
+    while (lines != NULL)
+    {
+        if ()
+        lines[i] = get_next_line(fd);
+    }
+    // if map is not rectangle then also quit
+    
+}
 
-    return 0;
+int grid_allocater(t_map *map)
+{
+    
+}
+
+void init_structs(t_dst_cds *dest_cds, t_src *three_d_cds)
+{
+    dest_cds->x = 0;
+    dest_cds->y = 0;
+    three_d_cds->x_row = 0;
+    three_d_cds->y_column = 0;
+    three_d_cds->z_value = 0;
+}
+
+// Main function
+int main(int argc, char **argv)
+{
+    t_map map;
+    t_dst_cds dest_cds;
+    t_src three_d_cds;
+
+    check_input(argc,argv);
+    init_structs(&dest_cds,&three_d_cds);
+    initialize_window(&map, argv[1]);
+    return EXIT_SUCCESS;
 }
