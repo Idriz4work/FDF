@@ -1,6 +1,6 @@
 # FDF-Clone
 
-A 42 Networks Graphics Project focused on building a 2D/3D Wireframe Model from scratch using the Minilibx library. Have fun ;D
+A 42 Networks Graphics Project focused on building a 2D/3D Wireframe Model from scratch using the Minilibx library.
 
 ---
 
