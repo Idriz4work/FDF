@@ -11,11 +11,3 @@
 /* ************************************************************************** */
 
 #include "FdF.h"
-
-map->grid = grid_allocater();
-if(map->grid == NULL)
-{
-    free_array((void **)map->grid);
-    ft_printf("ERROR IN GRID ALLOCATE INIT STRUCT\n");
-    exit(EXIT_FAILURE);
-}

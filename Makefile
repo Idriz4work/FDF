@@ -1,7 +1,8 @@
 NAME = fdf
 
 # Source files
-SRCS = sources/FdF.c  sources/FdF_utils.c   sources/hooker.c   sources/limitator.c  sources/points.c   sources/starter.c
+SRCS = sources/dimension.c sources/bonus_key_hooks.c sources/FdF.c  sources/FdF_utils.c   sources/window_hook.c   sources/point_connecter.c   sources/window_hook.c
+
 OBJS = $(SRCS:.c=.o)
 
 # Compiler and flags

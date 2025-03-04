@@ -13,14 +13,16 @@
 #include "FdF.h"
 
 // frees the array and sets it to null
-void free_array(void **grid)
+void	free_array(void **grid)
 {
-    int i = 0;
-    while (grid[i] != NULL)
-    {
-        free(grid[i]);
-        i++;
-    }
-    free(grid);
-    grid = NULL;
+	int	i;
+
+	i = 0;
+	while (grid[i] != NULL)
+	{
+		free(grid[i]);
+		i++;
+	}
+	free(grid);
+	grid = NULL;
 }
