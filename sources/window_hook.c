@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   starter.c                                          :+:      :+:    :+:   */
+/*   window_hook.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/24 00:03:54 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/06 00:54:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
-int	key_presser(int key, t_map map)
+int	key_presser(int key, t_map *map)
 {
 	if (key == ESC_KEY)
 	{
@@ -40,14 +40,8 @@ int	handle_x(t_map *map)
 }
 
 // Initialize the window
-void	initialize_window(t_map *map, char *filename, t_img *dest, t_src *src)
+void	initialize_window(t_map *map, t_img *dest, t_point *src)
 {
-	map->ptr_server_mlx = mlx_init();
-	if (!map->ptr_server_mlx)
-	{
-		perror("Failed to set up server");
-		exit(EXIT_FAILURE);
-	}
 	map->ptr_window_mlx = mlx_new_window(map->ptr_server_mlx, 1200, 1200,
 			"FdF");
 	if (!map->ptr_window_mlx)

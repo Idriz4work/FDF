@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/04 00:18:06 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/06 00:23:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,14 @@
 # include "../includes/Libft/libft.h"
 # include "../includes/ft_printf/ft_printf_bonus.h"
 # include "../mlx_libaries/minilibx-linux/mlx.h"
-// # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <sys/wait.h>
 
-typedef struct s_map
-{
-	void	*ptr_server_mlx;
-	void	*ptr_window_mlx;
-	size_t	**grid;
-}			t_map;
-
-typedef struct s_data
-{
-	/* data */
-	void	*image;
-	size_t	x;
-	size_t	y;
-}			t_img;
+# define WIDTH 1200
+# define HEIGHT 800
+// 30 degrees in radians
+# define ISO_ANGLE 0.523599
 
 // x = row
 // y = column
@@ -43,14 +32,32 @@ typedef struct s_data
 typedef struct s_src
 {
 	/* data */
-	size_t	x_row;
-	size_t	y_column;
-	size_t	z_value;
-}			t_src;
+	size_t	x;
+	size_t	y;
+	size_t	z;
+}			t_point;
 
-// 30 degrees in radians
-# define ISO_ANGLE 0.523599
-# define SCALE 30
+typedef struct s_map
+{
+	void	*ptr_server_mlx;
+	void	*ptr_window_mlx;
+	t_point	**grid;
+	int		width;
+	int		height;
+}			t_map;
+
+typedef struct s_data
+{
+	/* data */
+	void	*image;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	size_t	x;
+	size_t	y;
+}			t_img;
+
 
 // ASCII VALUES FOR MOVES
 # define ESC_KEY 53
@@ -66,28 +73,31 @@ typedef struct s_src
 // ERROR HANDELING
 
 // DDA ALgorithm / connecting points and also changing dimension
-void		pixel_draw(t_map *map, t_img *img_coords);
-void		draw_line_dda(t_map *map, t_img *start, t_src *end);
-void		dimension_changer(t_src *three_d, t_img *two_d, int angle);
+// void		pixel_draw(t_map *map, t_img *img_coords);
+// void		draw_line_dda(t_map *map, t_img *start, t_point *end);
+// void		dimension_changer(t_point *three_d, t_img *two_d, int angle);
+void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
+t_point		**allocate_grid(int width, int height);
+void		dimension_change(t_point *point, int scale, t_img *img);
+void		init_structs(t_img *dest_cds, t_point *three_d_cds);
+int			create_trgb(int t, int r, int g, int b);
 
-// utils
-
-// frees the array and sets it to null
+// // utils
 void		free_array(void **grid);
 
-// WINDOW MANAGEMENT CLOSING HOOKING
+// // WINDOW MANAGEMENT CLOSING HOOKING
 
-//
-int			key_presser(int key, t_map *map);
-//
-int			handle_x(t_map *map);
-//
-void		initialize_window(t_map *map, t_img *dest, t_src *src);
+// //
+// int			key_presser(int key, t_map *map);
+// //
+// int			handle_x(t_map *map);
+// //
+void		initialize_window(t_map *map, t_img *dest, t_point *src);
 
-// BONUS MOVER
+// // BONUS MOVER
 void		move_position_left(void);
 void		move_position_right(void);
 void		move_position_up(void);
-void	move_position_down(;)
+void		move_position_down(void);
 
 #endif

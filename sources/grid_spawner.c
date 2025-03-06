@@ -1,13 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hooker.c                                           :+:      :+:    :+:   */
+/*   grid_spawner.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/02/24 00:03:27 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/06 00:01:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
+
+// Correctly allocate 2D grid
+t_point	**allocate_grid(int width, int height)
+{
+	t_point	**grid;
+	int		i;
+
+	grid = malloc(sizeof(t_point *) * height);
+	if (!grid)
+		return (NULL);
+	for (i = 0; i < height; i++)
+	{
+		grid[i] = malloc(sizeof(t_point) * width);
+		if (!grid[i])
+		{
+			free_array(grid);
+			return (NULL);
+		}
+	}
+	return (grid);
+}
