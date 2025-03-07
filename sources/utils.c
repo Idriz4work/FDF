@@ -6,41 +6,58 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:44:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/06 01:04:56 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/07 02:13:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
-// frees the array and sets it to null
-void	free_array(void **grid)
+// Frees the array and sets it to NULL
+void free_array(void **array)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (grid[i] != NULL)
-	{
-		free(grid[i]);
-		i++;
-	}
-	free(grid);
-	grid = NULL;
+    if (!array)
+        return;
+    
+    for (i = 0; array[i]; i++)
+        free(array[i]);
+    free(array);
+    array = NULL;
 }
 
-void	init_structs(t_img *dest_cds, t_point *three_d_cds)
+// Init structs with proper defaults
+void init_structs(t_map *map)
 {
-	dest_cds->x = 0;
-	dest_cds->y = 0;
-	dest_cds->bits_per_pixel = 0;
-	dest_cds->line_length = 0;
-	dest_cds->endian = 0;
-	three_d_cds->x = 0;
-	three_d_cds->y = 0;
-	three_d_cds->z = 0;
+    map->ptr_server_mlx = NULL;
+    map->ptr_window_mlx = NULL;
+    map->offset_x = 0;
+    map->offset_y = 0;
+    map->scale = 1;
 }
 
-int	create_trgb(int t, int r, int g, int b)
+// Create a color value from individual RGBA components
+int create_trgb(int t, int r, int g, int b)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+    return (t << 24 | r << 16 | g << 8 | b);
 }
 
+// Count the number of columns in the map
+int count_columns(char **split_line)
+{
+    int count = 0;
+
+    while (split_line[count])
+        count++;
+        
+    return count;
+}
+
+// Count the number of rows in the map
+int count_rows(char **lines)
+{
+    int rows = 0;
+    while (lines[rows])
+        rows++;
+    return rows;
+}

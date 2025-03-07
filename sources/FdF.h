@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/06 00:23:05 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/07 01:59:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,22 @@
 
 # define WIDTH 1200
 # define HEIGHT 800
-// 30 degrees in radians
-# define ISO_ANGLE 0.523599
+# define ISO_ANGLE 0.523599 // 30 degrees in radians
+# define WINDOW_TITLE "Darakci Idris WireFrame"
 
-// x = row
-// y = column
-// z = value of number
-typedef struct s_src
+// Keycodes
+# define ESC_KEY 53
+# define A_KEY 65
+# define D_KEY 68
+# define S_KEY 83
+# define W_KEY 87
+
+// Struct Definitions
+typedef struct s_point
 {
-	/* data */
-	size_t	x;
-	size_t	y;
-	size_t	z;
+	int		x;
+	int		y;
+	int		z;
 }			t_point;
 
 typedef struct s_map
@@ -44,60 +48,30 @@ typedef struct s_map
 	t_point	**grid;
 	int		width;
 	int		height;
-}			t_map;
-
-typedef struct s_data
-{
-	/* data */
 	void	*image;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	size_t	x;
-	size_t	y;
-}			t_img;
+	int		offset_x;
+	int		offset_y;
+	int		scale;
+}			t_map;
 
-
-// ASCII VALUES FOR MOVES
-# define ESC_KEY 53
-// left
-# define A_KEY 65
-// right
-# define D_KEY 68
-// down
-# define S_KEY 83
-// up
-# define W_KEY 87
-
-// ERROR HANDELING
-
-// DDA ALgorithm / connecting points and also changing dimension
-// void		pixel_draw(t_map *map, t_img *img_coords);
-// void		draw_line_dda(t_map *map, t_img *start, t_point *end);
-// void		dimension_changer(t_point *three_d, t_img *two_d, int angle);
-void		my_mlx_pixel_put(t_img *data, int x, int y, int color);
-t_point		**allocate_grid(int width, int height);
-void		dimension_change(t_point *point, int scale, t_img *img);
-void		init_structs(t_img *dest_cds, t_point *three_d_cds);
+// Function Prototypes
+void		free_array(void **array);
+void		init_structs(t_map *map);
 int			create_trgb(int t, int r, int g, int b);
-
-// // utils
-void		free_array(void **grid);
-
-// // WINDOW MANAGEMENT CLOSING HOOKING
-
-// //
-// int			key_presser(int key, t_map *map);
-// //
-// int			handle_x(t_map *map);
-// //
-void		initialize_window(t_map *map, t_img *dest, t_point *src);
-
-// // BONUS MOVER
-void		move_position_left(void);
-void		move_position_right(void);
-void		move_position_up(void);
-void		move_position_down(void);
+int			count_columns(char **lines);
+int			count_rows(char **lines);
+int			key_presser(int key, t_map *map);
+int			close_window(t_map *map);
+void		initialize_window(t_map *map);
+t_point		**allocate_grid(int width, int height);
+void		put_pixel_to_image(t_map *map, int x, int y, int color);
+t_point		dimension_change(int x, int y, int z, t_map *map);
+void		draw_line(t_map *map, t_point start, t_point end, int color);
+void		draw_wireframe(t_map *map);
+void		init_image(t_map *map);
 
 #endif
