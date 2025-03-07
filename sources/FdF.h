@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/07 03:02:42 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/07 17:35:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,18 @@ typedef struct s_point
 	int		z;
 }			t_point;
 
+typedef struct s_dda
+{
+	float	dx;
+	float	dy;
+	float	steps;
+	float	x_inc;
+	float	y_inc;
+	float	x;
+	float	y;
+	int		i;
+}			t_dda;
+
 typedef struct s_map
 {
 	void	*ptr_server_mlx;
@@ -71,7 +83,7 @@ typedef struct s_map
 // Function Prototypes
 void		free_array(void **array);
 void		init_structs(t_map *map);
-int			create_trgb(int t, int r, int g, int b);
+int			get_trgb(int t, int r, int g, int b);
 int			count_columns(char **lines);
 int			count_rows(char **lines);
 int			key_presser(int key, void *param);
@@ -83,12 +95,16 @@ t_point		dimension_change(int x, int y, int z, t_map *map);
 void		draw_line(t_map *map, t_point start, t_point end, int color);
 void		draw_wireframe(t_map *map);
 void		init_image(t_map *map);
-void		init_image(t_map *map);
+void		init_map(t_map *map);
 void		redraw_window(t_map *map);
 
+int			convert_helper(const char *input, int numeral_base);
+int			ft_atoi_hex(const char *input, int base);
+int			detect_base(const char *input);
 
-int convert_helper(const char *input, int numeral_base);
-int ft_atoi_hex(const char *input, int base);
-int detect_base(const char *input);
+void		position_mover(int key, t_map *map, void *param);
+void		zoomer(int key, t_map *map, void *param);
+void		scaler(int key, t_map *map, void *param);
+void		put_pixel_to_image(t_map *map, int x, int y, int color);
 
 #endif

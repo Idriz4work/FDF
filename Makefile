@@ -1,7 +1,7 @@
 NAME = fdf
 
 # Source files
-SRCS = sources/FdF.c sources/bonus_key_hooks.c  sources/dimension.c  sources/grid_spawner.c  sources/point_connecter.c sources/utils.c  sources/window_hook.c
+SRCS = sources/init.c sources/FdF.c sources/bonus_key_hooks.c  sources/dimension.c  sources/grid_spawner.c  sources/point_connecter.c sources/utils.c  sources/window_hook.c
 
 OBJS = $(SRCS:.c=.o)
 

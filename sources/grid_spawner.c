@@ -6,11 +6,33 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/06 00:01:02 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/07 17:44:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
+
+// Count the number of columns in the map
+int	count_columns(char **split_line)
+{
+	int	count;
+
+	count = 0;
+	while (split_line[count])
+		count++;
+	return (count);
+}
+
+// Count the number of rows in the map
+int	count_rows(char **lines)
+{
+	int	rows;
+
+	rows = 0;
+	while (lines[rows])
+		rows++;
+	return (rows);
+}
 
 // Correctly allocate 2D grid
 t_point	**allocate_grid(int width, int height)
@@ -26,7 +48,7 @@ t_point	**allocate_grid(int width, int height)
 		grid[i] = malloc(sizeof(t_point) * width);
 		if (!grid[i])
 		{
-			free_array(grid);
+			free_array((void *)grid);
 			return (NULL);
 		}
 	}
