@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/07 01:59:19 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/07 03:02:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,20 @@
 # define WINDOW_TITLE "Darakci Idris WireFrame"
 
 // Keycodes
-# define ESC_KEY 53
-# define A_KEY 65
-# define D_KEY 68
-# define S_KEY 83
-# define W_KEY 87
+# define ESC_KEY 65307
+# define A_KEY 97
+# define D_KEY 100
+# define S_KEY 115
+# define W_KEY 119
+# define PLUS_KEY 61
+# define MINUS_KEY 45
+# define Z_KEY 122
+# define X_KEY 120
+
+// Color change
+# define RED 0
+# define GREEN 0
+# define BLUE 0
 
 // Struct Definitions
 typedef struct s_point
@@ -56,6 +65,7 @@ typedef struct s_map
 	int		offset_x;
 	int		offset_y;
 	int		scale;
+	int		z_scale;
 }			t_map;
 
 // Function Prototypes
@@ -64,8 +74,8 @@ void		init_structs(t_map *map);
 int			create_trgb(int t, int r, int g, int b);
 int			count_columns(char **lines);
 int			count_rows(char **lines);
-int			key_presser(int key, t_map *map);
-int			close_window(t_map *map);
+int			key_presser(int key, void *param);
+int			close_window(void *param);
 void		initialize_window(t_map *map);
 t_point		**allocate_grid(int width, int height);
 void		put_pixel_to_image(t_map *map, int x, int y, int color);
@@ -73,5 +83,12 @@ t_point		dimension_change(int x, int y, int z, t_map *map);
 void		draw_line(t_map *map, t_point start, t_point end, int color);
 void		draw_wireframe(t_map *map);
 void		init_image(t_map *map);
+void		init_image(t_map *map);
+void		redraw_window(t_map *map);
+
+
+int convert_helper(const char *input, int numeral_base);
+int ft_atoi_hex(const char *input, int base);
+int detect_base(const char *input);
 
 #endif

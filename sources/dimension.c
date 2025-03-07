@@ -6,26 +6,28 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:48 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/07 01:55:15 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/07 02:32:49 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
 
-// Convert 3D to 2D (Isometric Projection)
+// Convert 3D to 2D with adjustable parameters
 t_point dimension_change(int x, int y, int z, t_map *map)
 {
     t_point result;
-    int scale = 30; // Scaling factor
+    
+    // Apply z-scale to height values
+    float scaled_z = z * map->z_scale;
     
     // Isometric projection calculation
     float iso_x = (x - y) * cos(ISO_ANGLE);
-    float iso_y = (x + y) * sin(ISO_ANGLE) - z;
+    float iso_y = (x + y) * sin(ISO_ANGLE) - scaled_z;
     
-    // Set the image coordinates with scaling and offset
-    result.x = (int)(iso_x * scale) + (WIDTH / 2);
-    result.y = (int)(iso_y * scale) + (HEIGHT / 2);
+    // Apply scale and offset
+    result.x = (int)(iso_x * map->scale) + (WIDTH / 2) + map->offset_x;
+    result.y = (int)(iso_y * map->scale) + (HEIGHT / 2) + map->offset_y;
     result.z = z;
     
     return result;
@@ -61,29 +63,38 @@ void draw_wireframe(t_map *map)
     t_point current;
     t_point right;
     t_point down;
-    
-    // Clear the image first (optional - set all pixels to black)
-    ft_memset(map->addr, 0, WIDTH * HEIGHT * (map->bits_per_pixel / 8));
+    int color = 0xFFFFFF; // Default color (white)
     
     for (int y = 0; y < map->height; y++)
     {
         for (int x = 0; x < map->width; x++)
         {
-            // Convert the current point from 3D to 2D
-            current = dimension_change(x, y, map->grid[y][x].z, map);
+            // Get height value
+            int z = map->grid[y][x].z;
             
-            // Draw line to the right neighbor
+            // Color based on height (optional)
+            if (z > 0)
+                color = 0xFFFF00; // Yellow for peaks
+            else if (z < 0)
+                color = 0x0000FF; // Blue for valleys
+            else
+                color = 0xFFFFFF; // White for flat surfaces
+                
+            // Convert current 3D point to 2D
+            current = dimension_change(x, y, z, map);
+            
+            // Draw line to right neighbor if it exists
             if (x < map->width - 1)
             {
                 right = dimension_change(x + 1, y, map->grid[y][x + 1].z, map);
-                draw_line(map, current, right, 0x00FF00);
+                draw_line(map, current, right, color);
             }
             
-            // Draw line to the neighbor below
+            // Draw line to bottom neighbor if it exists
             if (y < map->height - 1)
             {
                 down = dimension_change(x, y + 1, map->grid[y + 1][x].z, map);
-                draw_line(map, current, down, 0x00FF00);
+                draw_line(map, current, down, color);
             }
         }
     }
