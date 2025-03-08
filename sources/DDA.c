@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 01:30:20 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/08 03:25:12 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:27:40 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Determine the number of steps
 // Calculate increments
 // Starting position
-void	draw_line(t_map *map, t_point start, t_point end, int color)
+void	dda_draw_line(t_map *map, t_point start, t_point end, int color)
 {
 	t_dda dda;
 

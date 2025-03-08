@@ -6,27 +6,11 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 22:05:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/08 02:28:24 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/08 22:46:25 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
-
-// Color based on height
-int	decide_color(int z)
-{
-	int	color;
-
-	color = 0xFFFFFF;
-	if (z > 0)
-		color = get_trgb(0, 45, 12, 80);
-	else if (z < 0)
-		color = get_trgb(0, 45, 12, 80);
-	else
-		color = get_trgb(0, 45, 12, 80);
-	return (color);
-}
-
 
 // Function to redraw the entire window with updated position
 void	redraw_window(t_map *map)
@@ -37,6 +21,7 @@ void	redraw_window(t_map *map)
 		map->image, 0, 0);
 }
 
+//
 void	position_mover(int key, t_map *map, void *param)
 {
 	if (key == A_KEY)
@@ -49,6 +34,7 @@ void	position_mover(int key, t_map *map, void *param)
 		map->offset_y -= 10;
 }
 
+//
 void	zoomer(int key, t_map *map, void *param)
 {
 	if (key == PLUS_KEY)
@@ -57,6 +43,7 @@ void	zoomer(int key, t_map *map, void *param)
 		map->scale = (map->scale > 2) ? map->scale - 2 : map->scale;
 }
 
+//
 void	scaler(int key, t_map *map, void *param)
 {
 	if (key == Z_KEY)

@@ -1,28 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FdF_utils.c                                        :+:      :+:    :+:   */
+/*   bonus_height_increase.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/07 12:34:14 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/02/24 22:59:40 by marvin           ###   ########.fr       */
+/*   Created: 2025/03/08 22:26:53 by iatilla-          #+#    #+#             */
+/*   Updated: 2025/03/08 22:27:01 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
-// frees the array and sets it to null
-void	free_array(void **grid)
-{
-	int	i;
 
-	i = 0;
-	while (grid[i] != NULL)
-	{
-		free(grid[i]);
-		i++;
-	}
-	free(grid);
-	grid = NULL;
-}

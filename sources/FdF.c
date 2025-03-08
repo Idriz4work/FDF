@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:34:12 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/07 17:40:25 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/08 16:38:58 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 int	map_prepare(char **split_line, t_map *map, int y, t_point *src)
 {
 	int	x;
+	int	base;
 
+	base = 0;
 	x = 0;
 	if (y == 0)
 	{
-		map->width = count_columns(split_line);
+		map->width = count_rows(split_line);
 		if (map->width == 0)
 			return (EXIT_FAILURE);
 		map->grid = allocate_grid(map->width, map->height);
@@ -31,10 +33,10 @@ int	map_prepare(char **split_line, t_map *map, int y, t_point *src)
 		return (EXIT_FAILURE);
 	while (split_line[x] && x < map->width)
 	{
+		base = detect_base(split_line[x]);
 		map->grid[y][x].x = x;
 		map->grid[y][x].y = y;
-		map->grid[y][x].z = ft_atoi_hex(split_line[x],
-				detect_base(split_line[x]));
+		map->grid[y][x].z = ft_atoi_hex(split_line[x], base);
 		x++;
 	}
 	return (EXIT_SUCCESS);
@@ -73,8 +75,8 @@ int	process_rows(t_map *map, int fd, t_point *src)
 int	scan_file(t_map *map, const char *file, t_point *src)
 {
 	int		fd;
-	char	*line;
 	int		line_count;
+	char	*line;
 
 	line_count = 0;
 	fd = open(file, O_RDONLY);
@@ -85,8 +87,8 @@ int	scan_file(t_map *map, const char *file, t_point *src)
 		line_count++;
 		free(line);
 	}
-	close(fd);
 	map->height = line_count;
+	close(fd);
 	fd = open(file, O_RDONLY);
 	if (fd < 0 || map->height == 0)
 		return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/08 03:03:08 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/08 22:26:01 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <stdio.h>
 # include <sys/wait.h>
 
-# define WIDTH 1200
-# define HEIGHT 800
+# define WIDTH 1700
+# define HEIGHT 1700
 # define ISO_ANGLE 0.523599 // 30 degrees in radians
 # define WINDOW_TITLE "Darakci Idris WireFrame"
 
@@ -41,6 +41,9 @@
 # define RED 0
 # define GREEN 0
 # define BLUE 0
+
+# define RIGHT -1
+# define DOWN 1
 
 // Struct Definitions
 typedef struct s_point
@@ -92,7 +95,7 @@ void		initialize_window(t_map *map);
 t_point		**allocate_grid(int width, int height);
 t_point		dimension_change(int x, int y, int z, t_map *map);
 void		put_pixel_to_image(t_map *map, int x, int y, int color);
-void		draw_line(t_map *map, t_point start, t_point end, int color);
+void		dda_draw_line(t_map *map, t_point start, t_point end, int color);
 void		draw_wireframe(t_map *map);
 void		init_image(t_map *map);
 void		init_map(t_map *map);
@@ -106,8 +109,11 @@ void		position_mover(int key, t_map *map, void *param);
 void		zoomer(int key, t_map *map, void *param);
 void		scaler(int key, t_map *map, void *param);
 void		put_pixel_to_image(t_map *map, int x, int y, int color);
-int	decide_color(int z);
 
+// BONUS
 
+// colors
+int	shader(int z, int color);
+int	color_decider(int z);
 
 #endif
