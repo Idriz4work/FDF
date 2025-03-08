@@ -3,56 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   window_hook.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/07 17:34:39 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/08 01:25:17 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
-
-// Function to redraw the entire window with updated position
-void	redraw_window(t_map *map)
-{
-	ft_memset(map->addr, 0, WIDTH * HEIGHT * (map->bits_per_pixel / 8));
-	draw_wireframe(map);
-	mlx_put_image_to_window(map->ptr_server_mlx, map->ptr_window_mlx,
-		map->image, 0, 0);
-}
-
-void	position_mover(int key, t_map *map, void *param)
-{
-	if (key == A_KEY)
-		map->offset_x += 10;
-	else if (key == D_KEY)
-		map->offset_x -= 10;
-	else if (key == W_KEY)
-		map->offset_y += 10;
-	else if (key == S_KEY)
-		map->offset_y -= 10;
-}
-
-void	zoomer(int key, t_map *map, void *param)
-{
-	if (key == PLUS_KEY)
-		map->scale += 2;
-	else if (key == MINUS_KEY)
-		map->scale = (map->scale > 2) ? map->scale - 2 : map->scale;
-}
-
-void	scaler(int key, t_map *map, void *param)
-{
-	if (key == Z_KEY)
-		map->z_scale += 0.1;
-	else if (key == X_KEY)
-	{
-		if ((map->z_scale > 0.1))
-			map->z_scale = map->z_scale;
-		else
-			map->z_scale = map->z_scale;
-	}
-}
 
 // Handle key events
 int	key_presser(int key, void *param)

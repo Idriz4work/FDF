@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/07 17:35:24 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/08 03:03:08 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int			key_presser(int key, void *param);
 int			close_window(void *param);
 void		initialize_window(t_map *map);
 t_point		**allocate_grid(int width, int height);
-void		put_pixel_to_image(t_map *map, int x, int y, int color);
 t_point		dimension_change(int x, int y, int z, t_map *map);
+void		put_pixel_to_image(t_map *map, int x, int y, int color);
 void		draw_line(t_map *map, t_point start, t_point end, int color);
 void		draw_wireframe(t_map *map);
 void		init_image(t_map *map);
@@ -106,5 +106,8 @@ void		position_mover(int key, t_map *map, void *param);
 void		zoomer(int key, t_map *map, void *param);
 void		scaler(int key, t_map *map, void *param);
 void		put_pixel_to_image(t_map *map, int x, int y, int color);
+int	decide_color(int z);
+
+
 
 #endif
