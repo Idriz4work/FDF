@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 12:34:12 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/08 16:38:58 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/09 16:50:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "FdF.h"
 
 // Populate map grid
-int	map_prepare(char **split_line, t_map *map, int y, t_point *src)
+int	map_prepare(char **split_line, t_map *map, int y)
 {
 	int	x;
 	int	base;
@@ -42,7 +42,7 @@ int	map_prepare(char **split_line, t_map *map, int y, t_point *src)
 	return (EXIT_SUCCESS);
 }
 
-int	process_rows(t_map *map, int fd, t_point *src)
+int	process_rows(t_map *map, int fd)
 {
 	int		y;
 	char	**split_line;
@@ -56,11 +56,12 @@ int	process_rows(t_map *map, int fd, t_point *src)
 		if (len > 0 && line[len - 1] == '\n')
 			line[len - 1] = '\0';
 		split_line = ft_split(line, ' ');
-		if (!split_line || map_prepare(split_line, map, y, src) == EXIT_FAILURE)
+		if (!split_line || map_prepare(split_line, map, y) == EXIT_FAILURE)
 		{
 			free_array((void **)split_line);
 			free(line);
 			close(fd);
+			
 			return (EXIT_FAILURE);
 		}
 		free_array((void **)split_line);
@@ -72,7 +73,7 @@ int	process_rows(t_map *map, int fd, t_point *src)
 }
 
 // Read file and process content
-int	scan_file(t_map *map, const char *file, t_point *src)
+int	scan_file(t_map *map, const char *file)
 {
 	int		fd;
 	int		line_count;
@@ -81,7 +82,10 @@ int	scan_file(t_map *map, const char *file, t_point *src)
 	line_count = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
+	{
+		clean_up(map);
 		return (EXIT_FAILURE);
+	}
 	while ((line = get_next_line(fd)))
 	{
 		line_count++;
@@ -89,22 +93,38 @@ int	scan_file(t_map *map, const char *file, t_point *src)
 	}
 	map->height = line_count;
 	close(fd);
-	fd = open(file, O_RDONLY);
-	if (fd < 0 || map->height == 0)
-		return (EXIT_FAILURE);
-	if (process_rows(map, fd, src) == EXIT_FAILURE)
-	{
-		ft_printf("Failed process rows\n");
-		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
+
+// Cleans up the map before return
+void clean_up(t_map *map)
+{
+	int i = 0;
+    if (!map)
+        return;
+    if (map->grid)
+       free_array((void **)map->grid);
+    if (map->image)
+        free(map->image);
+    if (map->addr)
+        free(map->addr);
+    if (map->ptr_window_mlx)
+        free(map->ptr_window_mlx);
+    if (map->ptr_server_mlx)
+        free(map->ptr_server_mlx);
+    map->grid = NULL;
+    map->image = NULL;
+    map->addr = NULL;
+    map->ptr_window_mlx = NULL;
+    map->ptr_server_mlx = NULL;
+}
+
 
 // Main entry point
 int	main(int argc, char **argv)
 {
 	t_map	map;
-	t_point	src;
+	int		fd;
 
 	if (argc != 2)
 	{
@@ -114,8 +134,20 @@ int	main(int argc, char **argv)
 	map.ptr_server_mlx = mlx_init();
 	if (!map.ptr_server_mlx)
 		return (EXIT_FAILURE);
-	if (scan_file(&map, argv[1], &src) == EXIT_FAILURE)
+	if (scan_file(&map, argv[1]) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0 || map.height == 0)
+	{
+		clean_up(&map);
+		return (EXIT_FAILURE);
+	}
+	if (process_rows(&map, fd) == EXIT_FAILURE)
+	{
+		clean_up(&map);
+		ft_printf("Failed process rows\n");
+		return (EXIT_FAILURE);
+	}
 	initialize_window(&map);
 	return (EXIT_SUCCESS);
 }

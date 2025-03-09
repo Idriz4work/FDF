@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:44:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/07 15:05:30 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/09 16:47:30 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,12 @@ void	free_array(void **array)
 
 	if (!array)
 		return ;
-	for (i = 0; array[i]; i++)
+	i = 0;
+	while(array[i])
+	{
 		free(array[i]);
+		i++;
+	}
 	free(array);
 	array = NULL;
 }

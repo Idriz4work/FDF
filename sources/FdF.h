@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FdF.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/08 22:26:01 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/09 16:48:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_map
 // Function Prototypes
 void		free_array(void **array);
 void		init_structs(t_map *map);
-int			get_trgb(int t, int r, int g, int b);
 int			count_columns(char **lines);
 int			count_rows(char **lines);
 int			key_presser(int key, void *param);
@@ -109,6 +108,8 @@ void		position_mover(int key, t_map *map, void *param);
 void		zoomer(int key, t_map *map, void *param);
 void		scaler(int key, t_map *map, void *param);
 void		put_pixel_to_image(t_map *map, int x, int y, int color);
+void clean_up(t_map *map);
+
 
 // BONUS
 
