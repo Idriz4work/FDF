@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:27 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/08 16:29:47 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/09 17:38:49 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ t_point	**allocate_grid(int width, int height)
 	grid = malloc(sizeof(t_point *) * height);
 	if (!grid)
 		return (NULL);
-	for (i = 0; i < height; i++)
+	i = 0;
+	while (i < height)
 	{
 		grid[i] = malloc(sizeof(t_point) * width);
 		if (!grid[i])
 		{
-			free_array((void *)grid);
+			free_array((void *)grid, i);
 			return (NULL);
 		}
+		i++;
 	}
 	return (grid);
 }

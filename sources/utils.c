@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 18:44:47 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/09 16:47:30 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/09 17:38:21 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,4 @@ int	ft_atoi_hex(const char *input, int base)
 	}
 	else
 		return (convert_helper(input, base) * sign_multiplier);
-}
-
-// Frees the array and sets it to NULL
-void	free_array(void **array)
-{
-	int	i;
-
-	if (!array)
-		return ;
-	i = 0;
-	while(array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-	array = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window_hook.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/09 16:48:14 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/09 17:36:50 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	key_presser(int key, void *param)
 	else if (key == ESC_KEY)
 	{
 		ft_printf("ESC pressed, exiting...\n");
-		mlx_destroy_window(map->ptr_server_mlx, map->ptr_window_mlx);
-		exit(EXIT_SUCCESS);
+		clean_exit(map, EXIT_SUCCESS);
 	}
 	else
 		position_mover(key, map, param);
@@ -42,22 +41,19 @@ int	close_window(void *param)
 
 	map = (t_map *)param;
 	printf("Window closed. Exiting...\n");
-	mlx_destroy_window(map->ptr_server_mlx, map->ptr_window_mlx);
-	exit(EXIT_SUCCESS);
-	return (0);
+	clean_exit(map, EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 // Initialize the window and start the rendering
 void	initialize_window(t_map *map)
 {
-	map = NULL;
-	init_map(map);
 	map->ptr_window_mlx = mlx_new_window(map->ptr_server_mlx, WIDTH, HEIGHT,
 			"FDF");
 	if (!map->ptr_window_mlx)
 	{
-		clean_up(map);
 		ft_printf("Failed to create window\n");
+		clean_exit(map, EXIT_FAILURE);
 		return ;
 	}
 	init_image(map);
@@ -66,6 +62,7 @@ void	initialize_window(t_map *map)
 		map->image, 0, 0);
 	mlx_key_hook(map->ptr_window_mlx, key_presser, map);
 	mlx_hook(map->ptr_window_mlx, 17, 0, close_window, map);
-	ft_printf("Press ESC to exit,WASD to move,+/- to zoom.\n");
+	ft_printf("Press ESC to exit, WASD to move, +/- to zoom.\n");
 	mlx_loop(map->ptr_server_mlx);
+	clean_exit(map, EXIT_SUCCESS);
 }

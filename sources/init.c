@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 15:05:22 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/09 16:43:40 by marvin           ###   ########.fr       */
+/*   Updated: 2025/03/09 22:50:30 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,32 +21,22 @@ void	init_image(t_map *map)
 }
 
 // Initialize map values
-void init_map(t_map *map)
+void	init_map(t_map *map)
 {
-    if (!map)
-        return;
-    map->ptr_server_mlx = NULL;
-    map->ptr_window_mlx = NULL;
-    map->grid = NULL;
-    map->image = NULL;
-    map->addr = NULL;
-    map->width = 0;
-    map->height = 0;
-    map->bits_per_pixel = 0;
-    map->line_length = 0;
-    map->endian = 0;
-    map->offset_x = 0;
-    map->offset_y = 0;
-    map->scale = 30;
-    map->z_scale = 1;
-}
-
-// Init structs with proper defaults
-void	init_structs(t_map *map)
-{
+	if (!map)
+		return ;
 	map->ptr_server_mlx = NULL;
 	map->ptr_window_mlx = NULL;
+	map->grid = NULL;
+	map->image = NULL;
+	map->addr = NULL;
+	map->width = 0;
+	map->height = 0;
+	map->bits_per_pixel = 0;
+	map->line_length = 0;
+	map->endian = 0;
 	map->offset_x = 0;
 	map->offset_y = 0;
-	map->scale = 1;
+	map->scale = 10;
+	map->z_scale = 1;
 }
