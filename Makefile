@@ -6,7 +6,7 @@ SRCS = sources/map_parser.c sources/clean_exit.c sources/bonus_height_increase.c
 OBJS = $(SRCS:.c=.o)
 
 # Compiler and flags
-CC = cc #-Wall -Werror -Wextra
+CC = cc -Wall -Werror -Wextra
 CFLAGS =  -g
 
 # Include paths

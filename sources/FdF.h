@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 13:46:38 by iatilla-          #+#    #+#             */
-/*   Updated: 2025/03/09 23:18:06 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:27:10 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@
 # define PLUS_KEY 61
 # define MINUS_KEY 45
 # define Z_KEY 122
+# define Y_KEY 121
 # define X_KEY 120
+# define R_KEY 114
 
 // Color change
 # define RED 0
@@ -117,9 +119,9 @@ int			convert_helper(const char *input, int numeral_base);
 int			ft_atoi_hex(const char *input, int base);
 int			detect_base(const char *input);
 
-void		position_mover(int key, t_map *map, void *param);
-void		zoomer(int key, t_map *map, void *param);
-void		scaler(int key, t_map *map, void *param);
+void		position_mover(int key, t_map *map);
+void		zoomer(int key, t_map *map);
+void		scaler(int key, t_map *map);
 void		put_pixel_to_image(t_map *map, int x, int y, int color);
 void		clean_up(t_map *map);
 void		clean_exit(t_map *map, int status);

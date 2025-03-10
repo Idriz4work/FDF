@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 00:03:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/09 17:36:50 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:26:37 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ int	key_presser(int key, void *param)
 
 	map = (t_map *)param;
 	ft_printf("Key pressed: %d\n", key);
-	if (key == Z_KEY || key == X_KEY)
-		scaler(key, map, param);
-	else if (key == PLUS_KEY || key == MINUS_KEY)
-		zoomer(key, map, param);
-	else if (key == ESC_KEY)
+	if (key == Z_KEY || key == X_KEY || key == Y_KEY || key == R_KEY)
+		scaler(key, map);
+	if (key == PLUS_KEY || key == MINUS_KEY)
+		zoomer(key, map);
+	if (key == ESC_KEY)
 	{
 		ft_printf("ESC pressed, exiting...\n");
 		clean_exit(map, EXIT_SUCCESS);
 	}
 	else
-		position_mover(key, map, param);
+		position_mover(key, map);
 	redraw_window(map);
 	return (0);
 }

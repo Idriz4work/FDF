@@ -6,7 +6,7 @@
 /*   By: iatilla- <iatilla-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 22:05:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/03/09 23:23:20 by iatilla-         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:13:03 by iatilla-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	redraw_window(t_map *map)
 }
 
 //
-void	position_mover(int key, t_map *map, void *param)
+void	position_mover(int key, t_map *map)
 {
 	if (key == A_KEY)
 		map->offset_x += 10;
@@ -35,7 +35,7 @@ void	position_mover(int key, t_map *map, void *param)
 }
 
 //
-void	zoomer(int key, t_map *map, void *param)
+void	zoomer(int key, t_map *map)
 {
 	if (key == PLUS_KEY)
 		map->scale += 2;
@@ -45,19 +45,5 @@ void	zoomer(int key, t_map *map, void *param)
 			map->scale = map->scale - 2;
 		else
 			map->scale = map->scale;
-	}
-}
-
-//
-void	scaler(int key, t_map *map, void *param)
-{
-	if (key == Z_KEY)
-		map->z_scale += 0.1;
-	else if (key == X_KEY)
-	{
-		if (map->z_scale > 0.1)
-			map->z_scale = map->z_scale;
-		else
-			map->z_scale = map->z_scale;
 	}
 }
