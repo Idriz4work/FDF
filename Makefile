@@ -1,12 +1,11 @@
 NAME = fdf
 
 # Source files
-SRCS = sources/map_parser.c sources/clean_exit.c sources/bonus_height_increase.c sources/color_increase.c sources/DDA.c sources/init.c sources/FdF.c sources/bonus_key_hooks.c  sources/dimension.c  sources/grid_spawner.c  sources/point_connecter.c sources/utils.c  sources/window_hook.c
-
+SRCS = sources/FdF.c  sources/FdF_utils.c   sources/window_hook.c   sources/limitator.c  sources/points.c   sources/starter.c
 OBJS = $(SRCS:.c=.o)
 
 # Compiler and flags
-CC = cc -Wall -Werror -Wextra
+CC = cc #-Wall -Werror -Wextra
 CFLAGS =  -g
 
 # Include paths
